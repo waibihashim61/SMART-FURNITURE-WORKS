@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mbale Furniture Workshop</title>
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* --- WOODY COLOR PALETTE --- */
+        :root {
+            --primary-wood: #5C3A21;    /* Rich Walnut Brown */
+            --dark-wood: #3E2613;       /* Deep Espresso for Footer */
+            --light-wood: #F4EFE6;      /* Soft Sand/Beige for backgrounds */
+            --accent-gold: #C48B47;     /* Natural Wood Gold for highlights */
+            --accent-red: #8B3A3A;      /* Mahogany Red for borders/accents */
+            --text-dark: #2C1E16;       /* Dark Brown/Black for text */
+            --text-gray: #5E5046;       /* Muted warm gray for paragraphs */
+            --white: #FFFFFF;
+            --font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            /* Added smooth scrolling for anchor links */
+            scroll-behavior: smooth; 
+        }
+
+        body {
+            font-family: var(--font-main);
+            color: var(--text-dark);
+            line-height: 1.6;
+            background-color: var(--white);
+        }
+
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; }
+
+        /* --- TOP BAR --- */
+        .top-bar {
+            background-color: var(--dark-wood);
+            color: var(--light-wood);
+            font-size: 0.8rem;
+            padding: 8px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .top-bar-links a { margin-left: 15px; font-weight: 500; transition: color 0.3s; }
+        .top-bar-links a:hover { color: var(--accent-gold); }
+        
+        .top-bar-social a { margin-right: 15px; cursor: pointer; transition: color 0.3s; color: var(--light-wood); font-size: 1rem;}
+        .top-bar-social a:hover { color: var(--accent-gold); }
+
+        /* --- MAIN HEADER --- */
+        .main-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 5%;
+            background: var(--white);
+        }
+        .logo-area { display: flex; align-items: center; gap: 15px; }
+        .logo-icon {
+            width: 60px; height: 60px;
+            background: var(--primary-wood);
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            color: var(--accent-gold); font-size: 1.5rem; 
+            border: 2px solid var(--accent-gold);
+        }
+        .logo-text h1 { color: var(--primary-wood); font-size: 1.4rem; line-height: 1.2; }
+        .logo-text p { color: var(--accent-red); font-size: 0.85rem; font-style: italic; font-weight: 600; }
+        
+        .header-contact { display: flex; gap: 40px; }
+        
+        /* Styles to make the whole contact item clickable */
+        .contact-item { 
+            display: flex; 
+            align-items: center; 
+            gap: 15px; 
+            transition: transform 0.2s ease;
+        }
+        .contact-item:hover {
+            transform: translateY(-2px);
+        }
+        .contact-item:hover .contact-icon {
+            background-color: var(--light-wood);
+        }
+
+        .contact-icon {
+            width: 45px; height: 45px; border-radius: 50%;
+            border: 1px solid var(--primary-wood); color: var(--primary-wood);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.2rem;
+            transition: background-color 0.3s;
+        }
+        .contact-item h4 { font-size: 1rem; color: var(--text-dark); }
+        .contact-item p { font-size: 0.85rem; color: var(--text-gray); }
+
+        /* --- NAVIGATION --- */
+        .navbar {
+            background: var(--white);
+            padding: 0 5%;
+            border-top: 1px solid #E6DFD3;
+            border-bottom: 1px solid #E6DFD3;
+            position: sticky; top: 0; z-index: 100;
+        }
+        .nav-links { display: flex; gap: 30px; }
+        .nav-links li a {
+            display: inline-block;
+            padding: 15px 0;
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: var(--text-dark);
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+        }
+        .nav-links li a:hover, .nav-links li a.active {
+            color: var(--primary-wood);
+            border-bottom: 3px solid var(--accent-gold);
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            position: relative;
+            height: 600px;
+            /* 👇 REPLACE THE URL BELOW WITH YOUR TEAM PHOTO LINK 👇 */
+            background: url('https://images.unsplash.com/photo-1541882453386-258635200175?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
+            display: flex;
+            align-items: center;
+            padding: 0 5%;
+        }
+        .hero-overlay {
+            position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+            /* This dark gradient makes the text easy to read over your photo */
+            background: linear-gradient(to right, rgba(62, 38, 19, 0.9) 0%, rgba(62, 38, 19, 0.2) 100%);
+        }
+        .hero-content {
+            position: relative; z-index: 10;
+            background: rgba(44, 30, 22, 0.9);
+            border-left: 5px solid var(--accent-gold);
+            padding: 40px;
+            max-width: 650px;
+            color: var(--white);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            border-radius: 0 8px 8px 0;
+        }
+        .hero-content h2 { font-size: 2.2rem; margin-bottom: 20px; line-height: 1.2; color: #F4EFE6; }
+        .hero-content p { font-size: 1rem; color: #D1C7B8; margin-bottom: 25px; }
+        .hero-btn {
+            background: var(--accent-gold); color: var(--dark-wood);
+            padding: 12px 25px; font-weight: bold;
+            display: inline-block; border-radius: 4px;
+            transition: background 0.3s;
+        }
+        .hero-btn:hover { background: #D9A05B; }
+
+        /* --- SERVICES CARDS --- */
+        .services-section {
+            padding: 80px 5%;
+            background: var(--light-wood);
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+        .service-card {
+            background: var(--white);
+            padding: 40px 30px;
+            flex: 1;
+            min-width: 300px;
+            max-width: 380px;
+            border-radius: 8px;
+            box-shadow: 0 5px 20px rgba(92, 58, 33, 0.08);
+            position: relative;
+        }
+        .service-card::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0;
+            height: 4px; border-radius: 8px 8px 0 0;
+        }
+        .service-card.card-1::before { background: var(--text-dark); }
+        .service-card.card-2::before { background: var(--primary-wood); }
+        .service-card.card-3::before { background: var(--accent-red); }
+
+        .card-icon {
+            width: 60px; height: 60px;
+            border-radius: 10px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.8rem; margin-bottom: 20px;
+        }
+        .card-1 .card-icon { background: #F4EFE6; color: var(--text-dark); }
+        .card-2 .card-icon { background: #EBE3D5; color: var(--primary-wood); }
+        .card-3 .card-icon { background: #F4E8E8; color: var(--accent-red); }
+
+        .service-card h3 { margin-bottom: 15px; font-size: 1.3rem; color: var(--primary-wood); }
+        .service-card p { color: var(--text-gray); font-size: 0.95rem; margin-bottom: 25px; }
+        .read-more {
+            font-weight: bold; color: var(--primary-wood);
+            display: flex; align-items: center; gap: 8px;
+            border: 1px solid #D1C7B8; padding: 10px 20px;
+            border-radius: 4px; width: fit-content;
+            transition: background 0.3s;
+        }
+        .read-more:hover { background: var(--light-wood); }
+
+        /* --- ABOUT & STATS SECTION --- */
+        .about-section {
+            padding: 80px 5%;
+            display: flex;
+            gap: 50px;
+            align-items: center;
+            flex-wrap: wrap;
+            background: var(--white);
+        }
+        .about-text { flex: 1; min-width: 300px; }
+        .about-text h4 { color: var(--accent-gold); font-size: 1.1rem; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 1px;}
+        .about-text h2 { font-size: 2.5rem; margin-bottom: 20px; line-height: 1.2; color: var(--primary-wood); }
+        .about-text p { color: var(--text-gray); margin-bottom: 20px; }
+        
+        .about-image-wrapper {
+            flex: 1; min-width: 300px;
+            position: relative;
+            padding-bottom: 50px; 
+        }
+        .about-image-wrapper img {
+            width: 100%; border-radius: 8px; display: block;
+            box-shadow: 0 10px 30px rgba(92, 58, 33, 0.15);
+        }
+        .stats-box {
+            position: absolute; bottom: 0; right: 20px;
+            background: var(--white); display: flex;
+            box-shadow: 0 5px 20px rgba(92, 58, 33, 0.15);
+            border-radius: 8px; overflow: hidden;
+            border: 1px solid #EBE3D5;
+        }
+        .stat-item {
+            padding: 20px 30px; text-align: center;
+            border-right: 1px solid #EBE3D5;
+        }
+        .stat-item:last-child { border-right: none; }
+        .stat-item h3 { color: var(--primary-wood); font-size: 1.5rem; }
+        .stat-item p { font-size: 0.8rem; color: var(--text-gray); font-weight: 600; }
+
+        /* --- GALLERY SECTION --- */
+        .gallery-section {
+            padding: 80px 5%;
+            background: var(--light-wood);
+            text-align: center;
+        }
+        .gallery-section h4 { color: var(--accent-gold); font-size: 1rem; letter-spacing: 1px; text-transform: uppercase; }
+        .gallery-section h2 { font-size: 2.5rem; color: var(--primary-wood); margin-bottom: 10px; }
+        .gallery-section > p { color: var(--text-gray); margin-bottom: 40px; }
+        
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+        .gallery-item {
+            background: var(--white);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(92, 58, 33, 0.08);
+            position: relative;
+        }
+        .gallery-item img {
+            width: 100%; height: 250px; object-fit: cover;
+            display: block;
+            transition: transform 0.4s ease;
+        }
+        .gallery-item:hover img { 
+            transform: scale(1.08); 
+        }
+        .gallery-title {
+            padding: 15px;
+            font-weight: 600;
+            color: var(--primary-wood);
+            border-top: 2px solid var(--accent-gold);
+            background: var(--white);
+            position: relative;
+            z-index: 2;
+        }
+
+        /* --- NEWS & EVENTS --- */
+        .news-section {
+            padding: 80px 5%;
+            background: var(--white);
+            text-align: center;
+        }
+        .news-section h4 { color: var(--accent-gold); font-size: 1rem; letter-spacing: 1px; text-transform: uppercase; }
+        .news-section h2 { font-size: 2.5rem; margin-bottom: 10px; color: var(--primary-wood); }
+        .news-section > p { color: var(--text-gray); margin-bottom: 50px; }
+
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+        }
+        .news-card {
+            background: var(--white);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(92, 58, 33, 0.08);
+            text-align: left;
+            border: 1px solid #E6DFD3;
+        }
+        .news-img {
+            height: 220px;
+            position: relative;
+            background-color: #E6DFD3;
+        }
+        .news-img img { width: 100%; height: 100%; object-fit: cover; }
+        .news-date {
+            position: absolute; top: 15px; left: 15px;
+            background: var(--primary-wood); color: var(--white);
+            padding: 8px 12px; border-radius: 4px;
+            font-weight: bold; text-align: center; line-height: 1.1;
+            border: 1px solid var(--accent-gold);
+        }
+        .news-date span { display: block; font-size: 0.7rem; font-weight: normal; }
+        .news-content { padding: 25px; }
+        .news-content h3 { font-size: 1.2rem; margin-bottom: 15px; line-height: 1.4; color: var(--primary-wood); }
+        .news-content p { color: var(--text-gray); font-size: 0.9rem; }
+
+        /* --- CONTACT SECTION --- */
+        .contact-section {
+            padding: 80px 5%;
+            background: var(--light-wood);
+            text-align: center;
+        }
+        .contact-section h2 { font-size: 2.5rem; color: var(--primary-wood); margin-bottom: 20px; }
+        .contact-details {
+            display: flex; justify-content: center; gap: 40px; flex-wrap: wrap;
+            margin-top: 30px;
+        }
+        .contact-details div {
+            background: var(--white); padding: 30px;
+            border-radius: 8px; min-width: 250px;
+            border-top: 4px solid var(--accent-gold);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        .contact-details i { font-size: 2rem; color: var(--primary-wood); margin-bottom: 15px; }
+        .contact-details h3 { font-size: 1.2rem; margin-bottom: 10px; color: var(--primary-wood); }
+        .contact-details p { color: var(--text-gray); }
+
+        /* --- FOOTER --- */
+        .footer {
+            background: var(--dark-wood);
+            color: var(--light-wood);
+            padding: 60px 5% 30px;
+            border-top: 5px solid var(--accent-gold);
+        }
+        .footer-top { display: flex; gap: 50px; flex-wrap: wrap; margin-bottom: 40px; }
+        .footer-brand { flex: 1.5; min-width: 250px; }
+        .footer-brand .logo-text h1 { color: var(--white); font-size: 1.2rem; margin-bottom: 20px; }
+        .footer-brand p { font-size: 0.9rem; margin-bottom: 15px; display: flex; gap: 10px; color: #D1C7B8;}
+        .footer-social { display: flex; gap: 15px; margin-top: 20px; }
+        .footer-social a { color: var(--light-wood); font-size: 1.2rem; transition: color 0.3s;}
+        .footer-social a:hover { color: var(--accent-gold); }
+        
+        .footer-links { flex: 1; min-width: 200px; }
+        .footer-links h3 { font-size: 1.1rem; margin-bottom: 20px; position: relative; padding-bottom: 10px; color: var(--white); }
+        .footer-links h3::after {
+            content: ''; position: absolute; left: 0; bottom: 0;
+            width: 40px; height: 2px; background: var(--accent-gold);
+        }
+        .footer-links ul li { margin-bottom: 12px; }
+        .footer-links ul li a { font-size: 0.9rem; color: #D1C7B8; display: flex; align-items: center; gap: 8px; transition: color 0.3s;}
+        .footer-links ul li a:hover { color: var(--accent-gold); }
+        
+        .footer-bottom {
+            text-align: center; padding-top: 20px;
+            border-top: 1px solid rgba(244, 239, 230, 0.1);
+            font-size: 0.85rem; color: #A89B8D;
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .main-header { flex-direction: column; gap: 20px; text-align: center; }
+            .header-contact { flex-direction: column; gap: 15px; }
+            .nav-links { flex-wrap: wrap; justify-content: center; gap: 15px; }
+            .hero-content h2 { font-size: 1.8rem; }
+            .stats-box { position: relative; right: 0; margin-top: -30px; margin-left: 20px; margin-right: 20px; justify-content: space-around; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- TOP BAR -->
+    <div class="top-bar">
+        <div class="top-bar-social">
+            <a href="https://www.tiktok.com/@mbalefurniture" target="_blank" rel="noopener noreferrer"><i class="fab fa-tiktok"></i></a>
+            <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://www.whatsapp.com/" target="_blank" rel="noopener noreferrer"><i class="fab fa-whatsapp"></i></a>
+            <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
+        </div>
+        <div class="top-bar-links">
+            <a href="#contact">Location</a> |
+            <a href="#contact">Careers</a> |
+            <a href="#contact">Contact Us</a>
+        </div>
+    </div>
+
+    <!-- MAIN HEADER -->
+    <header class="main-header">
+        <div class="logo-area">
+            <div class="logo-icon"><i class="fas fa-couch"></i></div>
+            <div class="logo-text">
+                <h1>MBALE FURNITURE WORKSHOP</h1>
+                <p>Crafting Quality Since 2015</p>
+            </div>
+        </div>
+        <div class="header-contact">
+            
+            <!-- 👇 WhatsApp Icon & Text is now a clickable link 👇 -->
+            <a href="https://wa.me/256700000000" target="_blank" rel="noopener noreferrer" class="contact-item">
+                <div class="contact-icon"><i class="fab fa-whatsapp"></i></div>
+                <div>
+                    <h4>WhatsApp</h4>
+                    <p>+256 700 000 000</p>
+                </div>
+            </a>
+
+            <!-- 👇 Email Icon & Text is now a clickable link 👇 -->
+            <a href="mailto:info@mbalefurniture.com" class="contact-item">
+                <div class="contact-icon"><i class="far fa-envelope"></i></div>
+                <div>
+                    <h4>Email</h4>
+                    <p>info@mbalefurniture.com</p>
+                </div>
+            </a>
+
+        </div>
+    </header>
+
+    <!-- NAVIGATION -->
+    <nav class="navbar">
+        <ul class="nav-links">
+            <li><a href="#home" class="active">HOME</a></li>
+            <li><a href="#about">ABOUT US</a></li>
+            <li><a href="#services">SERVICES <i class="fas fa-caret-down"></i></a></li>
+            <li><a href="#gallery">GALLERY</a></li>
+            <li><a href="#contact">CONTACT</a></li>
+        </ul>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section class="hero" id="home">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h2>EXPERT CARPENTRY & CUSTOM FURNITURE IN MBALE</h2>
+            <p>Located in Mbale District, adjacent to Soroti Guest House. We design, build, and repair premium wooden furniture for homes, offices, and institutions.</p>
+            <a href="#contact" class="hero-btn">REQUEST A QUOTE</a>
+        </div>
+    </section>
+
+    <!-- SERVICES CARDS -->
+    <section class="services-section" id="services">
+        <div class="service-card card-1">
+            <div class="card-icon"><i class="fas fa-hammer"></i></div>
+            <h3>Custom Furniture</h3>
+            <p>Bespoke tables, beds, wardrobes, and shelving crafted exactly to your measurements and style preferences.</p>
+            <a href="#contact" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+        </div>
+        <div class="service-card card-2">
+            <div class="card-icon"><i class="fas fa-tools"></i></div>
+            <h3>Repairs & Restoration</h3>
+            <p>Bring worn or broken pieces back to life. We offer expert joinery and refinishing services for antique and modern furniture.</p>
+            <a href="#contact" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+        </div>
+        <div class="service-card card-3">
+            <div class="card-icon"><i class="fas fa-chair"></i></div>
+            <h3>Upholstery</h3>
+            <p>Sofas, chairs, and cushions re-covered in quality fabrics. Give your living room or office a fresh, comfortable look.</p>
+            <a href="#contact" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+        </div>
+    </section>
+
+    <!-- ABOUT & STATS -->
+    <section class="about-section" id="about">
+        <div class="about-text">
+            <h4>You Are Welcome To</h4>
+            <h2>Mbale Furniture Workshop</h2>
+            <p>We are a dedicated team of local craftsmen based in Mbale District, right next to Soroti Guest House. Since opening our doors, we have been committed to providing the highest quality woodwork to the people of Eastern Uganda.</p>
+            <p>Whether you need a single bespoke chair or a full office fit-out, we combine traditional techniques with modern tools to ensure durability and elegance.</p>
+        </div>
+        <div class="about-image-wrapper">
+            <img src="https://images.unsplash.com/photo-1622150013719-51417b273120?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Carpenter working in workshop">
+            <div class="stats-box">
+                <div class="stat-item">
+                    <h3>2015</h3>
+                    <p>Established</p>
+                </div>
+                <div class="stat-item">
+                    <h3>500+</h3>
+                    <p>Projects Done</p>
+                </div>
+                <div class="stat-item">
+                    <h3>100%</h3>
+                    <p>Local Craft</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- GALLERY SECTION (15 CARDS) -->
+    <section class="gallery-section" id="gallery">
+        <h4>Our Portfolio</h4>
+        <h2>Recent Woodwork</h2>
+        <p>Take a look at some of the custom pieces we have designed and built for our clients.</p>
+        
+        <div class="gallery-grid">
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1538688525198-9b88f6f53126?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Mahogany Dining Set">
+                <div class="gallery-title">Mahogany Dining Set</div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1505693314120-0d443867891c?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Solid Wood Bed">
+                <div class="gallery-title">Solid Wood Bed Frame</div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Restored Cabinet">
+                <div class="gallery-title">Restored Vintage Cabinet</div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1595515106969-1ce29566ff1c?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Wooden Chairs">
+                <div class="gallery-title">Handcrafted Wooden Chairs</div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1524758631624-e2822e304c36?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Office Desk">
+                <div class="gallery-title">Executive Office Desk</div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Sofa Upholstery">
+                <div class="gallery-title">Custom Sofa Upholstery</div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Bookshelf">
+                <div class="gallery-title">Built-in Bookshelf</div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1519710164239-da123dc03ef4?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Coffee Table">
+                <div class="gallery-title">Live-Edge Coffee Table</div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1506377295352-e3154d43ea9e?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Wardrobe">
+                <div class="gallery-title">Custom Fitted Wardrobe</div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1533090481720-856c6e3c1fdc?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Outdoor Bench">
+                <div class="gallery-title">Outdoor Garden Bench</div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1540932239986-30128078f3c5?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Wooden Shelves">
+                <div class="gallery-title">Floating Wooden Shelves</div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1499933374294-4584851497cc?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Bedside Tables">
+                <div class="gallery-title">Matching Bedside Tables</div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Wooden Headboard">
+                <div class="gallery-title">Carved Wood Headboard</div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1581428982868-e410dd047a90?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="TV Stand">
+                <div class="gallery-title">Modern TV Stand</div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1592078615290-033ee584e267?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Dining Chairs">
+                <div class="gallery-title">Upholstered Dining Chairs</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- NEWS & EVENTS -->
+    <section class="news-section">
+        <h4>WORKSHOP UPDATES</h4>
+        <h2>Latest News and Projects</h2>
+        <p>Recent builds, milestones, and stories from our workshop in Mbale.</p>
+
+        <div class="news-grid">
+            <div class="news-card">
+                <div class="news-img">
+                    <img src="https://images.unsplash.com/photo-1538688525198-9b88f6f53126?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Table project">
+                    <div class="news-date">Nov 10<span>2026</span></div>
+                </div>
+                <div class="news-content">
+                    <h3>Completed: Custom Mahogany Dining Set</h3>
+                    <p>We recently delivered a beautiful 8-seater mahogany dining table and chairs to a client in Mbale City. The finish was spectacular...</p>
+                </div>
+            </div>
+            
+            <div class="news-card">
+                <div class="news-img">
+                    <img src="https://images.unsplash.com/photo-1505693314120-0d443867891c?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Beds project">
+                    <div class="news-date">Oct 28<span>2026</span></div>
+                </div>
+                <div class="news-content">
+                    <h3>Bulk Order: Beds for Local Guest House</h3>
+                    <p>Our team just finished manufacturing and installing 15 solid wood beds for a new guest house opening near Soroti Guest House...</p>
+                </div>
+            </div>
+            
+            <div class="news-card">
+                <div class="news-img">
+                    <img src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Restoration project">
+                    <div class="news-date">Oct 15<span>2026</span></div>
+                </div>
+                <div class="news-content">
+                    <h3>Restoring a Family Heirloom</h3>
+                    <p>We took on a challenging restoration project this month, bringing a 50-year-old wooden cabinet back to its former glory...</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT SECTION -->
+    <section class="contact-section" id="contact">
+        <h4 style="color: var(--accent-gold); text-transform: uppercase;">Get in Touch</h4>
+        <h2>Visit Our Workshop</h2>
+        <p style="color: var(--text-gray); max-width: 600px; margin: 0 auto;">Have a project in mind? Reach out to us today for a free consultation and quote.</p>
+        
+        <div class="contact-details">
+            <div>
+                <i class="fas fa-map-marker-alt"></i>
+                <h3>Location</h3>
+                <p>Mbale District,<br>Adjacent to Soroti Guest House</p>
+            </div>
+            <div>
+                <i class="fas fa-phone-alt"></i>
+                <h3>Phone / WhatsApp</h3>
+                <p>+256 700 000 000<br>Mon - Sat, 8am - 6pm</p>
+            </div>
+            <div>
+                <i class="far fa-envelope"></i>
+                <h3>Email</h3>
+                <p>info@mbalefurniture.com<br>quotes@mbalefurniture.com</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-top">
+            <div class="footer-brand">
+                <div class="logo-text">
+                    <h1>MBALE FURNITURE WORKSHOP</h1>
+                </div>
+                <p><i class="fas fa-map-marker-alt"></i> Mbale District, adjacent to Soroti Guest House, Eastern Uganda</p>
+                <p><i class="far fa-envelope"></i> info@mbalefurniture.com</p>
+                <p><i class="fas fa-phone-alt"></i> +256 700 000 000</p>
+                <p><i class="fab fa-whatsapp"></i> +256 700 000 000</p>
+                
+                <div class="footer-social">
+                    <a href="https://www.tiktok.com/@mbalefurniture" target="_blank" rel="noopener noreferrer"><i class="fab fa-tiktok"></i></a>
+                    <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-links">
+                <h3>Important Links</h3>
+                <ul>
+                    <li><a href="#about"><i class="fas fa-angle-right"></i> About Our Workshop</a></li>
+                    <li><a href="#contact"><i class="fas fa-angle-right"></i> Request a Quote</a></li>
+                    <li><a href="#gallery"><i class="fas fa-angle-right"></i> View Gallery</a></li>
+                    <li><a href="#services"><i class="fas fa-angle-right"></i> Wood Types Available</a></li>
+                    <li><a href="#contact"><i class="fas fa-angle-right"></i> Delivery Information</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-links">
+                <h3>Our Services</h3>
+                <ul>
+                    <li><a href="#services"><i class="fas fa-angle-right"></i> Custom Furniture</a></li>
+                    <li><a href="#services"><i class="fas fa-angle-right"></i> Sofa & Upholstery</a></li>
+                    <li><a href="#services"><i class="fas fa-angle-right"></i> Office Fit-outs</a></li>
+                    <li><a href="#services"><i class="fas fa-angle-right"></i> Furniture Repairs</a></li>
+                    <li><a href="#services"><i class="fas fa-angle-right"></i> Wood Polishing</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-links">
+                <h3>Quick Contact</h3>
+                <ul>
+                    <li><a href="#contact"><i class="fas fa-angle-right"></i> WhatsApp Us</a></li>
+                    <li><a href="#contact"><i class="fas fa-angle-right"></i> Call Now</a></li>
+                    <li><a href="#contact"><i class="fas fa-angle-right"></i> Email Us</a></li>
+                    <li><a href="#contact"><i class="fas fa-angle-right"></i> Visit Workshop</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2026 Mbale Furniture Workshop. All rights reserved. | Designed in Mbale</p>
+        </div>
+    </footer>
+
+</body>
+</html>
